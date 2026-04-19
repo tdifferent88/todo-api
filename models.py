@@ -1,22 +1,12 @@
-# Pydantic valida os dados automaticamente
-from pydantic import BaseModel
-from typing import Optional
+from sqlalchemy import Column, Integer, String, Boolean
+from database import Base
 
-# Campos base da tarefa
-class TodoBase(BaseModel):
-    # obrigatório
-    title: str
-    # opcional
-    description: Optional[str] = None
-    # padrão não concluída
+# Representa a tabela "todos" no banco de dados
+class Todo(Base):
+    __tablename__ = "todos"
 
-# Usando na criação (sem id)
-class TodoCreate(TodoBase):
-    pass
-
-# Retornando pela API (com id)
-class Todo(TodoBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+    # Colunas da tabela
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)        # obrigatório
+    description = Column(String, nullable=True)   # opcional
+    completed = Column(Boolean, default=False)    # padrão: não concluída

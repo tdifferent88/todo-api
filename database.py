@@ -1,11 +1,27 @@
-# Lista simples como banco de dados
-# Em produção usaria PostgreSQL ou SQLite
-todos_db = []
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-# Contador para gerar IDs únicos
-counter = 0
+# Cria o banco de dados SQLite na pasta do projeto
+# O arquivo todo.db será criado automaticamente
+DATABASE_URL = "sqlite:///./todo.db"
 
-def get_next_id():
-    global counter
-    counter += 1
-    return counter
+# Cria a conexão com o banco
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False}  # necessário para SQLite
+)
+
+# Cria a sessão para interagir com o banco
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Base para os modelos do banco
+Base = declarative_base()
+
+# Função para abrir e fechar a sessão automaticamente
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

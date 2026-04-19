@@ -8,3 +8,6 @@ __pycache__/
 
 # Variáveis de ambiente (senhas, chaves)
 .env
+
+# Banco de dados
+todo.db
