@@ -2,29 +2,27 @@
 
 API REST para gerenciamento de tarefas, desenvolvida com FastAPI e Python.
 
+## 🔗 URL Pública
+https://todo-api-6fqa.onrender.com
+
+## 📖 Documentação interativa
+https://todo-api-6fqa.onrender.com/docs
+
 ## Tecnologias
 - Python 3.14
 - FastAPI
-- Uvicorn
-- Pydantic
+- SQLAlchemy
+- SQLite
+- Pytest
 
-## Como rodar
+## Como rodar localmente
 
 ```bash
-# Clonar o projeto
-git clone https://github.com/seu-usuario/todo-api
-
-# Entrar na pasta
+git clone https://github.com/tdifferent88/todo-api
 cd todo-api
-
-# Criar e ativar o venv
 python -m venv venv
 venv\Scripts\activate
-
-# Instalar dependências
 pip install -r requirements.txt
-
-# Rodar o servidor
 uvicorn main:app --reload
 ```
 
@@ -32,13 +30,15 @@ uvicorn main:app --reload
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
+| GET | / | Rota inicial |
 | GET | /todos | Lista todas as tarefas |
 | POST | /todos | Cria uma nova tarefa |
 | GET | /todos/{id} | Busca uma tarefa pelo id |
 | PUT | /todos/{id} | Atualiza uma tarefa |
 | DELETE | /todos/{id} | Deleta uma tarefa |
 
-## Documentação interativa
+## Testes
 
-Após rodar o servidor, acesse:
-http://localhost:8000/docs
+```bash
+pytest test_main.py -v
+```
